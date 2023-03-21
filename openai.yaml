@@ -1,5 +1,4 @@
 payload:
-
   - DOMAIN-SUFFIX,ai.com
   - DOMAIN-SUFFIX,challenges.cloudflare.com
   - DOMAIN-SUFFIX,openai.com
