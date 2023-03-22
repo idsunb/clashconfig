@@ -1,0 +1,208 @@
+mixed-port: 7890
+allow-lan: false
+mode: Rule
+log-level: silent
+external-controller: 127.0.0.1:60000
+proxy-providers:
+  foo:
+    type: http
+    path: ./profiles/proxies/foo.yaml
+    url: (待填)
+    interval: 36000
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 3000
+proxy-groups:
+  - name: 🔰国外流量
+    type: select
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 🚀直接连接
+    type: select
+    proxies:
+      - DIRECT
+  - name: 🛑 全球拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🍃 应用净化
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 📢 谷歌FCM
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 📲 电报信息
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+  - name: 🌍 OpenAi
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国外流量
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    use:
+      - foo
+rule-providers:
+  OpenAi:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/idsunb/clashconfig/main/openai.yaml
+    interval: 1
+    path: ./ACL4SSR/OpenAi.yaml
+  LocalAreaNetwork:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/LocalAreaNetwork.yaml
+    interval: 86400
+    path: ./ACL4SSR/LocalAreaNetwork.yaml
+  UnBan:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/UnBan.yaml
+    interval: 86400
+    path: ./ACL4SSR/UnBan.yaml
+  BanAD:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanAD.yaml
+    interval: 86400
+    path: ./ACL4SSR/BanAD.yaml
+  BanProgramAD:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml
+    interval: 86400
+    path: ./ACL4SSR/BanProgramAD.yaml
+  GoogleFCM:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleFCM.yaml
+    interval: 86400
+    path: ./ACL4SSR/GoogleFCM.yaml
+  GoogleCN:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleCN.yaml
+    interval: 86400
+    path: ./ACL4SSR/GoogleCN.yaml
+  SteamCN:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/SteamCN.yaml
+    interval: 86400
+    path: ./ACL4SSR/SteamCN.yaml
+  Microsoft:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Microsoft.yaml
+    interval: 86400
+    path: ./ACL4SSR/Microsoft.yaml
+  Apple:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Apple.yaml
+    interval: 86400
+    path: ./ACL4SSR/Apple.yaml
+  Telegram:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Telegram.yaml
+    interval: 86400
+    path: ./ACL4SSR/Telegram.yaml
+  ProxyLite:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyLite.yaml
+    interval: 86400
+    path: ./ACL4SSR/ProxyLite.yaml
+  ProxyMedia:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyMedia.yaml
+    interval: 86400
+    path: ./ACL4SSR/ProxyMedia.yaml
+  ChinaDomain:
+    behavior: classical
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaDomain.yaml
+    interval: 86400
+    path: ./ACL4SSR/ChinaDomain.yaml
+  ChinaCompanyIp:
+    behavior: ipcidr
+    type: http
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaCompanyIp.yaml
+    interval: 86400
+    path: ./ACL4SSR/ChinaCompanyIp.yaml
+rules:
+  - RULE-SET,LocalAreaNetwork,🚀直接连接
+  - RULE-SET,SteamCN,🚀直接连接
+  - RULE-SET,GoogleCN,🚀直接连接
+  - RULE-SET,ChinaDomain,🚀直接连接
+  - RULE-SET,OpenAi,🌍 OpenAi
+  - RULE-SET,ChinaCompanyIp,🚀直接连接
+  - RULE-SET,BanAD,🛑 全球拦截
+  - RULE-SET,BanProgramAD,🍃 应用净化
+  - RULE-SET,GoogleFCM,📢 谷歌FCM
+  - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,Telegram,📲 电报信息
+  - RULE-SET,ProxyLite,🔰国外流量
+  - RULE-SET,ProxyMedia,🌍 国外媒体
+  - GEOIP,CN,🚀直接连接
+  - MATCH,🐟 漏网之鱼
